@@ -1,0 +1,245 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Chuck Norris Jokes API",
+    "description": "An API to retrieve Chuck Norris jokes and facts.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Chuck Norris API Support",
+      "url": "https://api.chucknorris.io"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.chucknorris.io"
+    }
+  ],
+  "paths": {
+    "/jokes/random": {
+      "get": {
+        "summary": "Retrieve a random joke",
+        "description": "Fetches a random Chuck Norris joke.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Category of jokes to filter by (optional)"
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Customize the joke with a different name (optional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A random Chuck Norris joke",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["categories", "created_at", "icon_url", "id", "updated_at", "url", "value"],
+                  "properties": {
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "icon_url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "categories": ["dev"],
+                    "created_at": "2019-06-02 08:47:39.43184",
+                    "icon_url": "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+                    "id": "bwoz2uwsqnwmyawyxdvo1w",
+                    "updated_at": "2019-06-02 08:47:39.43184",
+                    "url": "https://api.chucknorris.io/jokes/bwoz2uwsqnwmyawyxdvo1w",
+                    "value": "Chuck Norris can divide by zero."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jokes/categories": {
+      "get": {
+        "summary": "Retrieve available joke categories",
+        "description": "Fetches a list of joke categories.",
+        "responses": {
+          "200": {
+            "description": "A list of joke categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["animal", "career", "celebrity", "dev"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jokes/search": {
+      "get": {
+        "summary": "Search jokes",
+        "description": "Search jokes by a query string.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Text to search for in jokes"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results for jokes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["total", "result"],
+                  "properties": {
+                    "total": {
+                      "type": "integer"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": ["categories", "created_at", "icon_url", "id", "updated_at", "url", "value"],
+                        "properties": {
+                          "categories": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "icon_url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "example": {
+                          "categories": ["dev"],
+                          "created_at": "2019-06-02 08:47:39.43184",
+                          "icon_url": "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+                          "id": "bwoz2uwsqnwmyawyxdvo1w",
+                          "updated_at": "2019-06-02 08:47:39.43184",
+                          "url": "https://api.chucknorris.io/jokes/bwoz2uwsqnwmyawyxdvo1w",
+                          "value": "Chuck Norris can write multi-threaded applications in single-threaded code."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Joke": {
+        "type": "object",
+        "required": ["categories", "created_at", "icon_url", "id", "updated_at", "url", "value"],
+        "properties": {
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "icon_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "id": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "example": {
+          "categories": ["dev"],
+          "created_at": "2019-06-02 08:47:39.43184",
+          "icon_url": "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+          "id": "bwoz2uwsqnwmyawyxdvo1w",
+          "updated_at": "2019-06-02 08:47:39.43184",
+          "url": "https://api.chucknorris.io/jokes/bwoz2uwsqnwmyawyxdvo1w",
+          "value": "Chuck Norris can unit test entire applications with a single assertion."
+        }
+      }
+    }
+  }
+}
